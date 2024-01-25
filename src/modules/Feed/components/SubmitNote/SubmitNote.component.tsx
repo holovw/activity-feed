@@ -4,9 +4,11 @@ import ListIcon from '@mui/icons-material/List';
 
 import TimeLineItemComponent from '../TimeLineItem';
 
-import useOutsideClick from '../../../../hooks/useOutsideClick.ts';
+import useOutsideClick from '../../../../hooks/useOutsideClick';
 
-import { Note as NoteType, NoteTypes } from '../../../../ducks/note.ducks';
+import userService from '../../../../services/User.service';
+
+import { INote, NoteTypes } from '../../../../ducks/note.ducks';
 
 import { NoteIconMap } from '../../constants/note.constants';
 import { NoteTypePlaceholderMap } from './SubmitNote.constants';
@@ -21,12 +23,14 @@ import {
   SubmitButton,
   Form,
 } from './SubmitNote.styles';
+import Note from "../../../../models/Note.model.ts";
 
 type SubmitNoteProps = {
-  onSubmit(note: NoteType): void;
+  participantID: number,
+  onSubmit(note: INote): void;
 };
 
-const SubmitNote: FC<SubmitNoteProps> = ({ onSubmit }) => {
+const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
   const [ activeNoteType, setActiveNoteType ] = useState<NoteTypes>(NoteTypes.Message);
   const [ message, setMessage ] = useState<string>('');
   const [ focused, setFocused ] = useState<boolean>(false);
@@ -35,12 +39,15 @@ const SubmitNote: FC<SubmitNoteProps> = ({ onSubmit }) => {
 
   const createNote = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    onSubmit({
-      id: Date.now(),
-      type: activeNoteType,
-      message,
-      createdAt: new Date().toISOString(),
-    });
+
+    const currentUser = userService.getCurrent();
+
+    onSubmit(new Note(
+        activeNoteType,
+        message,
+        currentUser.id,
+        participantID
+    ));
 
     setMessage('');
     setActiveNoteType(NoteTypes.Message);

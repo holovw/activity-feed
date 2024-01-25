@@ -1,15 +1,15 @@
 import storage from './Storage.service';
 
-import { Note as NoteType } from '../ducks/note.ducks';
+import { INote } from '../ducks/note.ducks';
 
 const key = 'notes';
 
 class NoteService {
-  set(notes: NoteType[]) {
+  set(notes: INote[]) {
     storage.set(key, notes);
   }
 
-  get(): NoteType[] {
+  get(): INote[] {
     return storage.get(key) || [];
   }
 }

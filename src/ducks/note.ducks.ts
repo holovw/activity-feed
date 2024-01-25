@@ -6,9 +6,11 @@ export enum NoteTypes {
   Meeting = 'meeting',
 }
 
-export type Note = {
+export interface INote {
   id: number;
   type: NoteTypes;
   message: string;
   createdAt: string;
-};
+  ownerID: number;
+  participantID: number;
+}

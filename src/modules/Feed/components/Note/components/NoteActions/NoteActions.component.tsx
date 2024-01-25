@@ -4,14 +4,14 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import { Note as NoteType } from '../../../../../../ducks/note.ducks.ts';
+import { INote } from '../../../../../../ducks/note.ducks.ts';
 
 import { Actions, OpenButton } from './NoteActions.styles.ts';
 import { Icon } from '../../Note.styles.ts';
 
 type NoteActions = {
-  note: NoteType,
-  onDelete(note: NoteType): void,
+  note: INote,
+  onDelete(note: INote): void,
 };
 
 const NoteActions: FC<NoteActions> = ({ note, onDelete }) => {
@@ -24,7 +24,7 @@ const NoteActions: FC<NoteActions> = ({ note, onDelete }) => {
     setAnchorEl(null);
   };
 
-  const deleteNote = useCallback((note: NoteType) => () => {
+  const deleteNote = useCallback((note: INote) => () => {
     onDelete(note);
     handleClose();
   }, [onDelete, handleClose]);
