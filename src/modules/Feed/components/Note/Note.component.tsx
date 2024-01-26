@@ -31,7 +31,7 @@ const Note: FC<NoteProps> = ({ note, onDelete }) => {
   const ownerName = owner.id === current.id ? OWNER_PRONOUN : owner.fullName;
 
   return (
-    <TimeLineItemComponent icon={NoteIconMap[note.type]} actionDate={note.createdAt}>
+    <TimeLineItemComponent key={note.id} icon={NoteIconMap[note.type]} actionDate={note.createdAt}>
       <Paper variant='outlined'>
         <Person>
           {ownerName}

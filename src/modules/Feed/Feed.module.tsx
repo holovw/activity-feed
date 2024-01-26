@@ -2,14 +2,14 @@ import {useCallback, useMemo, useState} from 'react';
 import Note from './components/Note';
 import SubmitNote from './components/SubmitNote';
 
-import { INote } from '../../ducks/note.ducks';
-
 import noteService from '../../services/Note.service';
+import userService from "../../services/User.service.ts";
+
+import { INote } from '../../ducks/note.ducks';
 
 import { PARTICIPANT_USER_ID } from '../../services/__mock__/user.mock.ts';
 
 import { Container } from './Feed.styles';
-import userService from "../../services/User.service.ts";
 
 const Feed = () => {
   const currentUser = useMemo(() => userService.getCurrent(), [userService]);
@@ -30,7 +30,7 @@ const Feed = () => {
     <Container>
       <SubmitNote participantID={PARTICIPANT_USER_ID} onSubmit={addNote} />
       {notes.map((note: INote) => (
-        <Note key={note.id} note={note} onDelete={deleteNote} />
+          <Note key={note.id} note={note} onDelete={deleteNote} />
       ))}
     </Container>
   );
