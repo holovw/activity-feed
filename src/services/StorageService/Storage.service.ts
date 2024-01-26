@@ -1,4 +1,4 @@
-import localStorage from '../clients/LocalStorage.client';
+import localStorage from '../../clients/LocalStorage.client.ts';
 
 interface IStorageService {
   set(key: string, data: unknown): void,

@@ -1,4 +1,4 @@
-import storage from './Storage.service';
+import storage from './StorageService';
 
 import { INote } from '../ducks/note.ducks';
 
