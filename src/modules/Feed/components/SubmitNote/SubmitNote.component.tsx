@@ -51,7 +51,6 @@ const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
 
     setMessage('');
     setActiveNoteType(NoteTypes.Message);
-    setFocused(false);
   };
 
   const changeActiveNoteType = useCallback(
