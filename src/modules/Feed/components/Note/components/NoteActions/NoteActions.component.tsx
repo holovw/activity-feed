@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { FC, useState, useCallback, memo } from 'react';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -45,4 +45,4 @@ const NoteActions: FC<NoteActions> = ({ note, onDelete }) => {
   );
 };
 
-export default NoteActions;
+export default memo(NoteActions);

@@ -7,11 +7,11 @@ interface IStorageService {
 
 class StorageService implements IStorageService{
 
-  set(key: string, data: unknown) {
+  set<Type>(key: string, data: Type) {
     localStorage.setItem(key, data);
   }
 
-  get(key: string) {
+  get<Type>(key: string):Type | null {
     return localStorage.getItem(key);
   }
 }

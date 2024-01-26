@@ -1,7 +1,7 @@
 import errorService from '../services/Error.service';
 
 class LocalStorage {
-  setItem(key: string, data: unknown): void {
+  setItem<Type>(key: string, data: Type): void {
     try {
       setTimeout(() => {
         localStorage.setItem(key, JSON.stringify(data));
@@ -11,7 +11,7 @@ class LocalStorage {
     }
   }
 
-  getItem(key: string): unknown {
+  getItem<Type>(key: string): Type | null {
     try {
       const data = localStorage.getItem(key);
       if (data) {

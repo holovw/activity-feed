@@ -8,7 +8,7 @@ import { INote } from '../../../../ducks/note.ducks';
 import userService from '../../../../services/User.service';
 
 import { NoteIconMap } from '../../constants/note.constants';
-import { NoteTypeActionMap } from './Note.constants';
+import { NoteTypeActionMap, OWNER_PRONOUN } from './Note.constants';
 
 import {
   Activity,
@@ -28,7 +28,7 @@ const Note: FC<NoteProps> = ({ note, onDelete }) => {
   const participant = useMemo(() => userService.getByID(note.participantID), [note.participantID, userService]);
   const current = useMemo(() => userService.getCurrent(), [userService]);
 
-  const ownerName = owner.id === current.id ? 'You' : owner.fullName;
+  const ownerName = owner.id === current.id ? OWNER_PRONOUN : owner.fullName;
 
   return (
     <TimeLineItemComponent icon={NoteIconMap[note.type]} actionDate={note.createdAt}>

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, {FC, useCallback, useMemo, useState} from 'react';
 
 import ListIcon from '@mui/icons-material/List';
 
@@ -35,12 +35,13 @@ const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
   const [ message, setMessage ] = useState<string>('');
   const [ focused, setFocused ] = useState<boolean>(false);
 
+  const currentUser = useMemo(() => userService.getCurrent(), [userService]);
+  const participantUser = useMemo(() => userService.getByID(participantID), [participantID, userService]);
+
   const ref = useOutsideClick(() => setFocused(false));
 
-  const createNote = (event: React.SyntheticEvent) => {
+  const createNote = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
-
-    const currentUser = userService.getCurrent();
 
     onSubmit(new Note(
         activeNoteType,
@@ -51,7 +52,15 @@ const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
 
     setMessage('');
     setActiveNoteType(NoteTypes.Message);
-  };
+  }, [
+    activeNoteType,
+    message,
+    currentUser,
+    participantID,
+    onSubmit,
+    setMessage,
+    setActiveNoteType
+  ]);
 
   const changeActiveNoteType = useCallback(
     (type: NoteTypes) => () => {
@@ -64,16 +73,18 @@ const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
       setMessage(event.target.value);
   }, [setMessage]);
 
+  const focus = useCallback(() => setFocused(true), [setFocused]);
+
   return (
     <TimeLineItemComponent icon={ListIcon} ref={ref}>
       <Paper variant='outlined'>
         <Form onSubmit={createNote}>
           <TextInput
             variant='outlined'
-            placeholder={NoteTypePlaceholderMap[activeNoteType]('Milton Romaguera')}
+            placeholder={NoteTypePlaceholderMap[activeNoteType](participantUser.fullName)}
             value={message}
             onChange={changeMessage}
-            onFocus={() => setFocused(true)}
+            onFocus={focus}
           />
           {focused && <ActionBar>
             <TypeSelect>

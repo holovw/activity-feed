@@ -11,7 +11,7 @@ import { PARTICIPANT_USER_ID } from '../../services/__mock__/user.mock.ts';
 import { Container } from './Feed.styles';
 
 const Feed = () => {
-  const [notes, setNotes] = useState<INote[]>(noteService.get());
+  const [notes, setNotes] = useState<INote[]>(noteService.get() || []);
 
   const addNote = useCallback((note: INote) => {
     const updatedNotes = [note, ...notes];

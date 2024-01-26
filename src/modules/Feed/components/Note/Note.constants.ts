@@ -12,3 +12,5 @@ export const NoteTypeActionMap = {
   [NoteTypes.Beer]: actions.had(NoteTypes.Beer),
   [NoteTypes.Meeting]: actions.had(NoteTypes.Meeting),
 };
+
+export const OWNER_PRONOUN: string = 'You';

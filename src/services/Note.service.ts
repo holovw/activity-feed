@@ -6,11 +6,11 @@ const key = 'notes';
 
 class NoteService {
   set(notes: INote[]) {
-    storage.set(key, notes);
+    storage.set<INote[]>(key, notes);
   }
 
-  get(): INote[] {
-    return storage.get(key) || [];
+  get(): INote[] | null {
+    return storage.get<INote[]>(key);
   }
 }
 
