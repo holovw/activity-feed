@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import Note from './components/Note';
 import SubmitNote from './components/SubmitNote';
 
@@ -9,21 +9,22 @@ import noteService from '../../services/Note.service';
 import { PARTICIPANT_USER_ID } from '../../services/__mock__/user.mock.ts';
 
 import { Container } from './Feed.styles';
+import userService from "../../services/User.service.ts";
 
 const Feed = () => {
-  const [notes, setNotes] = useState<INote[]>(noteService.get() || []);
+  const currentUser = useMemo(() => userService.getCurrent(), [userService]);
+
+  const [notes, setNotes] = useState<INote[]>(noteService.getByOwnerID(currentUser.id));
 
   const addNote = useCallback((note: INote) => {
-    const updatedNotes = [note, ...notes];
+    const updatedNotes = noteService.add(note);
     setNotes(updatedNotes);
-    noteService.set(updatedNotes);
-  }, [notes, setNotes, noteService]);
+  }, [setNotes, noteService]);
 
   const deleteNote = useCallback((note: INote) => {
-    const updatedNotes = notes.filter(current => current.id !== note.id);
+    const updatedNotes = noteService.delete(note);
     setNotes(updatedNotes);
-    noteService.set(updatedNotes);
-  }, [notes, setNotes, noteService]);
+  }, [setNotes, noteService]);
 
   return (
     <Container>

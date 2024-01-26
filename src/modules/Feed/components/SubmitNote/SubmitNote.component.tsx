@@ -42,13 +42,14 @@ const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
 
   const createNote = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
-
-    onSubmit(new Note(
+    const newNote = new Note(
         activeNoteType,
         message,
         currentUser.id,
         participantID
-    ));
+    );
+
+    onSubmit(newNote);
 
     setMessage('');
     setActiveNoteType(NoteTypes.Message);

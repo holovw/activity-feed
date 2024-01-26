@@ -5,12 +5,26 @@ import { INote } from '../ducks/note.ducks';
 const key = 'notes';
 
 class NoteService {
-  set(notes: INote[]) {
-    storage.set<INote[]>(key, notes);
+  add(note: INote) {
+    return this.set([note, ...this.getAll()]);
   }
 
-  get(): INote[] | null {
-    return storage.get<INote[]>(key);
+  set(notes: INote[]): INote[] {
+    storage.set<INote[]>(key, notes);
+
+    return notes;
+  }
+
+  getAll(): INote[] {
+    return storage.get<INote[]>(key) || [];
+  }
+
+  getByOwnerID(id: number): INote[] {
+    return this.getAll().filter(note => note.ownerID === id) || [];
+  }
+
+  delete(note: INote): INote[] {
+    return this.set(this.getAll().filter(current => current.id !== note.id));
   }
 }
 
