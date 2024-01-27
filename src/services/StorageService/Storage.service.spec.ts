@@ -1,4 +1,4 @@
-import storageService from './Storage.service.ts';
+import storageService from './Storage.service';
 
 const setItemMock = jest.fn();
 const getItemMock = jest.fn();
@@ -16,7 +16,7 @@ jest.mock('../../clients/LocalStorage.client.ts', () => {
 });
 
 describe('StorageService', () => {
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 

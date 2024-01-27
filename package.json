@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -16,8 +17,10 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
+    "@types/uuid": "^9.0.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.3.0",

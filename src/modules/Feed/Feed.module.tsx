@@ -2,12 +2,12 @@ import {useCallback, useMemo, useState} from 'react';
 import Note from './components/Note';
 import SubmitNote from './components/SubmitNote';
 
-import noteService from '../../services/Note.service';
-import userService from "../../services/User.service.ts";
+import noteService from '../../services/NoteService';
+import userService from '../../services/UserService';
 
 import { INote } from '../../ducks/note.ducks';
 
-import { PARTICIPANT_USER_ID } from '../../services/__mock__/user.mock.ts';
+import { PARTICIPANT_USER_ID } from '../../services/__mock__/user.mocks';
 
 import { Container } from './Feed.styles';
 

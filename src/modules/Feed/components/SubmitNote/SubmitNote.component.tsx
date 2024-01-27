@@ -6,7 +6,7 @@ import TimeLineItemComponent from '../TimeLineItem';
 
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 
-import userService from '../../../../services/User.service';
+import userService from '../../../../services/UserService';
 
 import { INote, NoteTypes } from '../../../../ducks/note.ducks';
 
@@ -23,10 +23,10 @@ import {
   SubmitButton,
   Form,
 } from './SubmitNote.styles';
-import Note from "../../../../models/Note.model.ts";
+import Note from "../../../../models/Note.model";
 
 type SubmitNoteProps = {
-  participantID: number,
+  participantID: string,
   onSubmit(note: INote): void;
 };
 

@@ -1,6 +1,7 @@
 import errorService from '../services/Error.service';
 
 class LocalStorage {
+  // eslint-disable-next-line
   cache: Map<string, any>;
 
   constructor() {

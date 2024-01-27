@@ -3,26 +3,29 @@ import '@testing-library/jest-dom';
 
 import Note from './Note.component';
 
+import userService from '../../../../services/UserService';
+
 import NoteModel from '../../../../models/Note.model';
 
-import { INote, NoteTypes } from "../../../../ducks/note.ducks";
+import { INote, NoteTypes } from '../../../../ducks/note.ducks';
 
 describe('Note component', () => {
     test('should contain activity', async () => {
-        const mockID = Date.now();
         const mockMessage = 'Test message';
         const onDeleteMock = jest.fn();
+
+        const users = userService.getAll();
 
         const mockNote: INote = new NoteModel(
             NoteTypes.Meeting,
             mockMessage,
-            1,
-            2,
+            users[0].id,
+            users[1].id,
         );
 
         render(<Note note={mockNote} onDelete={onDeleteMock} />);
-        expect(await screen.findByTestId(`note-${mockID}`)).toHaveTextContent('had a meeting with')
+
+        const activityElement = await screen.findByTestId(`note-${mockNote.id}`);
+        expect(activityElement).toHaveTextContent('had a meeting with')
     });
 });
-
-

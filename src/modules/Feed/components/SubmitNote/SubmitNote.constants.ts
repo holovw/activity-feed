@@ -1,4 +1,4 @@
-import { NoteTypes } from '../../../../ducks/note.ducks.ts';
+import { NoteTypes } from '../../../../ducks/note.ducks';
 
 const actions = {
   addAbout: (type: NoteTypes) =>

@@ -1,4 +1,4 @@
-import { getDateDiff } from '../../../../utils/date.utils';
+import { getDateDiff } from '../../../../utils/date';
 
 export const getPassedTimeFormatted = (actionDate: string): string | null => {
   const diff = getDateDiff(actionDate, new Date().toISOString());

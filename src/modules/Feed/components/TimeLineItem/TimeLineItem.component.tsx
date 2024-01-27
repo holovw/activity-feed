@@ -7,7 +7,7 @@ import {
   Icon
 } from './TimeLineItem.styles';
 
-import { getPassedTimeFormatted } from './TimeLineItem.utils.ts';
+import { getPassedTimeFormatted } from './TimeLineItem.utils';
 
 interface TimeLineItemProps {
   icon: React.ElementType;

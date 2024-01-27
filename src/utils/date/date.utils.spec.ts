@@ -1,4 +1,4 @@
-import { getDateDiff } from './date.utils';
+import { getDateDiff } from './date.utils.ts';
 
 describe('Date Utils', () => {
   describe('getDateDiff', () => {

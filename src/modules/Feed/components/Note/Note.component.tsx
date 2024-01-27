@@ -5,7 +5,7 @@ import NoteActions from './components/NoteActions';
 
 import { INote } from '../../../../ducks/note.ducks';
 
-import userService from '../../../../services/User.service';
+import userService from '../../../../services/UserService';
 
 import { NoteIconMap } from '../../constants/note.constants';
 import { NoteTypeActionMap, OWNER_PRONOUN } from './Note.constants';
@@ -24,7 +24,7 @@ type NoteProps = {
 };
 
 const Note: FC<NoteProps> = ({ note, onDelete }) => {
-  const owner = useMemo(() => userService.getByID(note.ownerID), [note.id, userService]);
+  const owner = useMemo(() => userService.getByID(note.ownerID), [note.ownerID, userService]);
   const participant = useMemo(() => userService.getByID(note.participantID), [note.participantID, userService]);
   const current = useMemo(() => userService.getCurrent(), [userService]);
 

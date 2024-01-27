@@ -1,2 +1,2 @@
-import StorageService from './Storage.service';
-export default StorageService;
+import storageService from './Storage.service';
+export default storageService;

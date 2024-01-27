@@ -7,10 +7,10 @@ export enum NoteTypes {
 }
 
 export interface INote {
-  id: number;
+  id: string;
   type: NoteTypes;
   message: string;
   createdAt: string;
-  ownerID: number;
-  participantID: number;
+  ownerID: string;
+  participantID: string;
 }

@@ -4,10 +4,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import { INote } from '../../../../../../ducks/note.ducks.ts';
+import { INote } from '../../../../../../ducks/note.ducks';
 
-import { Actions, OpenButton } from './NoteActions.styles.ts';
-import { Icon } from '../../Note.styles.ts';
+import { Actions, OpenButton } from './NoteActions.styles';
+import { Icon } from '../../Note.styles';
 
 type NoteActions = {
   note: INote,

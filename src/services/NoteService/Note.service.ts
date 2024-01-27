@@ -1,25 +1,25 @@
-import storage from './StorageService';
+import storage from '../StorageService';
 
-import { INote } from '../ducks/note.ducks';
+import { INote } from '../../ducks/note.ducks';
 
-const key = 'notes';
+export class NoteService {
+  static ENTITY_KEY = 'notes';
 
-class NoteService {
   add(note: INote) {
     return this.set([note, ...this.getAll()]);
   }
 
   set(notes: INote[]): INote[] {
-    storage.set<INote[]>(key, notes);
+    storage.set<INote[]>(NoteService.ENTITY_KEY, notes);
 
     return notes;
   }
 
   getAll(): INote[] {
-    return storage.get<INote[]>(key) || [];
+    return storage.get<INote[]>(NoteService.ENTITY_KEY) || [];
   }
 
-  getByOwnerID(id: number): INote[] {
+  getByOwnerID(id: string): INote[] {
     return this.getAll().filter(note => note.ownerID === id) || [];
   }
 
@@ -28,4 +28,4 @@ class NoteService {
   }
 }
 
-export default new NoteService();
+export const noteService = new NoteService();

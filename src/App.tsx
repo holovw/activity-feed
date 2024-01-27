@@ -4,7 +4,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import { Container } from './App.styles.ts';
+import { Container } from './App.styles';
 
 import Feed from './modules/Feed';
 

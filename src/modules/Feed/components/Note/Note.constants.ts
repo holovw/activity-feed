@@ -1,4 +1,4 @@
-import { NoteTypes } from '../../../../ducks/note.ducks.ts';
+import { NoteTypes } from '../../../../ducks/note.ducks';
 
 const actions = {
   added: (type: NoteTypes): string => ` added a ${type} about `,

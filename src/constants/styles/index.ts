@@ -1,2 +1,2 @@
-import theme from './theme.ts';
+import theme from './theme';
 export { theme };

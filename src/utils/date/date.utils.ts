@@ -4,7 +4,7 @@ import {
   hour,
   day,
   week,
-} from '../constants/date.constants';
+} from '../../constants/date.constants.ts';
 
 interface DateDiff {
   [key: string]: number,
