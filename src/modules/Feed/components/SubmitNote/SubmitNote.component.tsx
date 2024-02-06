@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useMemo, useState} from 'react';
+import React, { FC, useCallback, useState, useMemo } from 'react';
 
 import ListIcon from '@mui/icons-material/List';
 
@@ -23,41 +23,38 @@ import {
   SubmitButton,
   Form,
 } from './SubmitNote.styles';
-import Note from "../../../../models/Note.model";
 
 type SubmitNoteProps = {
-  participantID: string,
+  note: INote,
   onSubmit(note: INote): void;
 };
 
-const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
-  const [ activeNoteType, setActiveNoteType ] = useState<NoteTypes>(NoteTypes.Message);
-  const [ message, setMessage ] = useState<string>('');
+const SubmitNote: FC<SubmitNoteProps> = ({ note, onSubmit }) => {
+  const [ activeNoteType, setActiveNoteType ] = useState<NoteTypes>(note.type);
+  const [ message, setMessage ] = useState<string>(note.message);
   const [ focused, setFocused ] = useState<boolean>(false);
 
-  const currentUser = useMemo(() => userService.getCurrent(), [userService]);
-  const participantUser = useMemo(() => userService.getByID(participantID), [participantID, userService]);
+  const participantUser = useMemo(() => userService.getByID(note.participantID), [note.participantID, userService]);
 
   const ref = useOutsideClick(() => setFocused(false));
 
-  const createNote = useCallback((event: React.SyntheticEvent) => {
+  const updateNote = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
-    const newNote = new Note(
-        activeNoteType,
-        message,
-        currentUser.id,
-        participantID
-    );
 
-    onSubmit(newNote);
+    onSubmit(
+      {
+        ...note,
+        message,
+        type: activeNoteType,
+      }
+    );
 
     setMessage('');
     setActiveNoteType(NoteTypes.Message);
   }, [
+    note,
     activeNoteType,
     message,
-    currentUser,
-    participantID,
     onSubmit,
     setMessage,
     setActiveNoteType
@@ -77,9 +74,9 @@ const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
   const focus = useCallback(() => setFocused(true), [setFocused]);
 
   return (
-    <TimeLineItemComponent icon={ListIcon} ref={ref}>
+    <TimeLineItemComponent key={note.id} icon={ListIcon} ref={ref}>
       <Paper variant='outlined'>
-        <Form onSubmit={createNote}>
+        <Form onSubmit={updateNote}>
           <TextInput
             variant='outlined'
             placeholder={NoteTypePlaceholderMap[activeNoteType](participantUser.fullName)}
@@ -87,7 +84,7 @@ const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
             onChange={changeMessage}
             onFocus={focus}
           />
-          {focused && <ActionBar>
+          {(focused || !!message) && <ActionBar>
             <TypeSelect>
               {Object.values(NoteTypes).map((type) => (
                 <TypeButton
@@ -100,7 +97,7 @@ const SubmitNote: FC<SubmitNoteProps> = ({ participantID, onSubmit }) => {
                 </TypeButton>
               ))}
             </TypeSelect>
-            <SubmitButton onClick={createNote}>Submit</SubmitButton>
+            <SubmitButton onClick={updateNote}>Submit</SubmitButton>
           </ActionBar>}
         </Form>
       </Paper>

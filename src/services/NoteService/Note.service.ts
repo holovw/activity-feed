@@ -9,6 +9,18 @@ export class NoteService {
     return this.set([note, ...this.getAll()]);
   }
 
+  update(note: INote) {
+    const notes = this.getAll();
+    const existedNoteIndex= notes.findIndex(current => current.id === note.id);
+
+    if (~existedNoteIndex) {
+      notes[existedNoteIndex] = note;
+      return this.set([...notes]);
+    }
+
+    return this.set([note, ...this.getAll()]);
+  }
+
   set(notes: INote[]): INote[] {
     storage.set<INote[]>(NoteService.ENTITY_KEY, notes);
 

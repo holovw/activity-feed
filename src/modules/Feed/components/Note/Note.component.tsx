@@ -20,10 +20,11 @@ import {
 
 type NoteProps = {
   note: INote,
+  onEdit(note: INote): void,
   onDelete(note: INote): void,
 };
 
-const Note: FC<NoteProps> = ({ note, onDelete }) => {
+const Note: FC<NoteProps> = ({ note, onEdit, onDelete }) => {
   const owner = useMemo(() => userService.getByID(note.ownerID), [note.ownerID, userService]);
   const participant = useMemo(() => userService.getByID(note.participantID), [note.participantID, userService]);
   const current = useMemo(() => userService.getCurrent(), [userService]);
@@ -40,7 +41,7 @@ const Note: FC<NoteProps> = ({ note, onDelete }) => {
         </Person>
         <Section>
           <Message>{note.message}</Message>
-          <NoteActions note={note} onDelete={onDelete} />
+          <NoteActions note={note} onEdit={onEdit} onDelete={onDelete} />
         </Section>
       </Paper>
     </TimeLineItemComponent>

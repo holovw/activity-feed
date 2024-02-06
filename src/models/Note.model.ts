@@ -1,6 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 import { INote, NoteTypes } from '../ducks/note.ducks';
 
+interface INoteInput {
+    type?: NoteTypes,
+    message?: string,
+    ownerID?: string,
+    participantID?: string,
+}
+
 class Note implements INote {
     id: string;
     type: NoteTypes;
@@ -10,10 +17,12 @@ class Note implements INote {
     participantID: string;
 
     constructor(
-        type: NoteTypes,
-        message: string,
-        ownerID: string,
-        participantID: string,
+      {
+          type = NoteTypes.Meeting,
+          message = '',
+          ownerID = '',
+          participantID = '',
+      }: INoteInput
     ) {
         this.id = uuidv4();
         this.type = type;
