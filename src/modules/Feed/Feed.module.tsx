@@ -48,7 +48,7 @@ const Feed = () => {
   const newNote = useMemo(() => new NoteModel({
     ownerID: currentUser.id,
     participantID: PARTICIPANT_USER_ID,
-  }), [Note])
+  }), [notes.length])
 
   return (
     <Container>

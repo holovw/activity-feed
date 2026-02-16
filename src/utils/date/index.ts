@@ -1,1 +1,1 @@
-export * from './date.utils';
+export { getDateDiff } from './date.utils';
